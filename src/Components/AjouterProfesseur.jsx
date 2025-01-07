@@ -12,24 +12,22 @@ const AjouterProfesseur = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
-      await axios.post('http://localhost:3002/professeurs', { nom, prenom, matiere });
-      alert('Professeur inscrit avec succès!');
-   
+      const response = await axios.post('http://localhost:5000/Professeurs', { 
+        nom, 
+        prenom, 
+        email, 
+        Mot_De_Passe, 
+        matiere 
+      });
+      alert(response.data.message);
       setNom('');
       setPrenom('');
-      setMatiere('');
-    } catch (error) {
-      console.error('Erreur lors de l\'inscription du Professeur:', error);
-    }
-    try {
-
-      await axios.post('http://localhost:3002/authentication_Professeurs', { email, Mot_De_Passe });
-      alert('Authentification du Professeur réussie!');
       setEmail('');
       setMot_De_Passe('');
+      setMatiere('');
     } catch (error) {
-      console.error('Erreur lors de l\'authentification du Professeur:', error);
+      console.error('Erreur lors de l\'inscription:', error);
+      alert('Erreur lors de l\'inscription du professeur');
     }
   };
 
@@ -46,8 +44,7 @@ const AjouterProfesseur = () => {
             placeholder="Entrez le nom du Professeur"
             value={nom}
             onChange={(e) => setNom(e.target.value)}
-            required
-          />
+            required />
         </div>
         <div className="mb-4">
           <label htmlFor="prenom" className="block text-gray-700 font-semibold mb-2">Prénom</label>
@@ -58,8 +55,7 @@ const AjouterProfesseur = () => {
             placeholder="Entrez le prénom du Professeur"
             value={prenom}
             onChange={(e) => setPrenom(e.target.value)}
-            required
-          />
+            required/>
         </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email</label>
@@ -70,8 +66,7 @@ const AjouterProfesseur = () => {
             placeholder="Entrez l'email du Professeur"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            required />
         </div>
         <div className="mb-4">
           <label htmlFor="Mot_De_Passe" className="block text-gray-700 font-semibold mb-2">Mot de passe</label>
@@ -79,11 +74,10 @@ const AjouterProfesseur = () => {
             type="password"
             id="Mot_De_Passe"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            placeholder="Entrez Mot de passe du Professeur"
+            placeholder="Entrez le mot de passe du Professeur"
             value={Mot_De_Passe}
             onChange={(e) => setMot_De_Passe(e.target.value)}
-            required
-          />
+            required/>
         </div>
         <div className="mb-4">
           <label htmlFor="matiere" className="block text-gray-700 font-semibold mb-2">Matière</label>
@@ -94,8 +88,7 @@ const AjouterProfesseur = () => {
             placeholder="Entrez la matière du Professeur"
             value={matiere}
             onChange={(e) => setMatiere(e.target.value)}
-            required
-          />
+            required/>
         </div>
         <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Enregistrer</button>
       </form>
@@ -105,3 +98,4 @@ const AjouterProfesseur = () => {
 };
 
 export default AjouterProfesseur;
+

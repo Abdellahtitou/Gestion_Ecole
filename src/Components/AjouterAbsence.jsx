@@ -7,7 +7,7 @@ const AjouterAbsence = () => {
   const [absences, setAbsences] = useState({});
 
   useEffect(() => {
-    axios.get('http://localhost:3002/etudiants').then((res) => {
+    axios.get('http://localhost:5000/etudiants').then((res) => {
       setEtudiants(res.data);
     });
   }, []);
@@ -35,7 +35,7 @@ const AjouterAbsence = () => {
 
       console.log('Absences to submit:', absencesToSubmit); 
 
-      await axios.post('http://localhost:3002/absences', absencesToSubmit);
+      await axios.post('http://localhost:5000/absences', absencesToSubmit);
       alert('Absences ajoutées avec succès.');
     } catch (err) {
       console.error('Erreur lors de l\'ajout des absences :', err);

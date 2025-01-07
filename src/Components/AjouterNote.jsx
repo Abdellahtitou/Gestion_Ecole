@@ -5,13 +5,11 @@ import { Link } from 'react-router-dom';
 const AddNoteForm = () => {
   const [etudiants, setEtudiants] = useState([]);
   const [notes, setNotes] = useState({});
-
   useEffect(() => {
-    axios.get('http://localhost:3002/etudiants').then((res) => {
+    axios.get('http://localhost:5000/etudiants').then((res) => {
       setEtudiants(res.data);
     });
   }, []);
-
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     setNotes((prevNotes) => ({
@@ -19,7 +17,6 @@ const AddNoteForm = () => {
       [index]: value,
     }));
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,7 +26,7 @@ const AddNoteForm = () => {
         note: notes[index] || '', 
       }));
 
-      await axios.post('http://localhost:3002/notes', notesToSubmit);
+      await axios.post('http://localhost:5000/notes', notesToSubmit);
       alert('Notes ajoutées avec succès.');
     } catch (err) {
       console.error('Erreur lors de l\'ajout des notes :', err);
@@ -61,8 +58,7 @@ const AddNoteForm = () => {
                     value={notes[index] || ''}
                     onChange={(e) => handleInputChange(e, index)}
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    required
-                  />
+                    required />
                 </td>
               </tr>
             ))}
@@ -71,8 +67,7 @@ const AddNoteForm = () => {
         <div className="text-center">
           <button
             type="submit"
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Enregistrer
           </button>
         </div>
@@ -83,5 +78,4 @@ const AddNoteForm = () => {
     </div>
   );
 };
-
 export default AddNoteForm;
